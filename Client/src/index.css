@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #000000;
+  --color-secondary: #4b4b4d;
+  /* Darkened from #86868b for better contrast */
+  --color-accent: #0066cc;
+  --color-background: #ffffff;
+  /* Brighter white */
+  --color-glass: rgba(255, 255, 255, 0.85);
+  /* More opaque */
+
+  --font-sans: "Inter", "SF Pro Display", system-ui, -apple-system, sans-serif;
+
+  --shadow-premium: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+:root {
+  background-color: var(--color-background);
+  color: var(--color-primary);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+@layer base {
+  * {
+    @apply border-gray-100;
+  }
+}
+
+.glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.premium-card {
+  @apply bg-white rounded-[32px] p-8 transition-all duration-700 hover:shadow-hover hover:-translate-y-2 border border-gray-50;
+}
+
+
+@layer components {
+  .aura-button {
+    @apply px-8 py-3 rounded-full font-semibold transition-all duration-300 transform active:scale-95 text-sm;
+  }
+
+  .aura-button-primary {
+    @apply px-8 py-3 rounded-full font-semibold transition-all duration-300 transform active:scale-95 text-sm bg-black text-white hover:bg-gray-900;
+  }
+
+  .aura-button-secondary {
+    @apply px-8 py-3 rounded-full font-semibold transition-all duration-300 transform active:scale-95 text-sm bg-gray-100 text-black border border-gray-300 hover:bg-gray-200;
+  }
+
+}
+
+
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e5e5e5;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d1d1d1;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
