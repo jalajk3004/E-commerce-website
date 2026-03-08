@@ -16,6 +16,7 @@ export default function Checkout() {
         city: '',
         state: '',
         zipCode: '',
+        country: '',
         mobile: ''
     });
 
@@ -90,18 +91,22 @@ export default function Checkout() {
                                         <label className="text-[11px] font-bold uppercase tracking-widest text-secondary ml-1">Street Address</label>
                                         <input name="streetAddress" value={address.streetAddress} onChange={handleInputChange} type="text" placeholder="123 Aura Street, Suite 4B" className="w-full p-4 rounded-2xl bg-gray-50 border-none outline-none focus:ring-2 focus:ring-black/5 transition-all font-medium" />
                                     </div>
-                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+                                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                                         <div className="space-y-2">
                                             <label className="text-[11px] font-bold uppercase tracking-widest text-secondary ml-1">City</label>
-                                            <input name="city" value={address.city} onChange={handleInputChange} type="text" placeholder="San Francisco" className="w-full p-4 rounded-2xl bg-gray-50 border-none outline-none focus:ring-2 focus:ring-black/5 transition-all font-medium" />
+                                            <input name="city" value={address.city} onChange={handleInputChange} type="text" placeholder="New Delhi" className="w-full p-4 rounded-2xl bg-gray-50 border-none outline-none focus:ring-2 focus:ring-black/5 transition-all font-medium" />
                                         </div>
                                         <div className="space-y-2">
                                             <label className="text-[11px] font-bold uppercase tracking-widest text-secondary ml-1">State</label>
-                                            <input name="state" value={address.state} onChange={handleInputChange} type="text" placeholder="CA" className="w-full p-4 rounded-2xl bg-gray-50 border-none outline-none focus:ring-2 focus:ring-black/5 transition-all font-medium" />
+                                            <input name="state" value={address.state} onChange={handleInputChange} type="text" placeholder="DL" className="w-full p-4 rounded-2xl bg-gray-50 border-none outline-none focus:ring-2 focus:ring-black/5 transition-all font-medium" />
                                         </div>
-                                        <div className="space-y-2 col-span-2 md:col-span-1">
+                                        <div className="space-y-2">
                                             <label className="text-[11px] font-bold uppercase tracking-widest text-secondary ml-1">ZIP Code</label>
-                                            <input name="zipCode" value={address.zipCode} onChange={handleInputChange} type="text" placeholder="94103" className="w-full p-4 rounded-2xl bg-gray-50 border-none outline-none focus:ring-2 focus:ring-black/5 transition-all font-medium" />
+                                            <input name="zipCode" value={address.zipCode} onChange={handleInputChange} type="text" placeholder="110001" className="w-full p-4 rounded-2xl bg-gray-50 border-none outline-none focus:ring-2 focus:ring-black/5 transition-all font-medium" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-bold uppercase tracking-widest text-secondary ml-1">Country</label>
+                                            <input name="country" value={address.country} onChange={handleInputChange} type="text" placeholder="India" className="w-full p-4 rounded-2xl bg-gray-50 border-none outline-none focus:ring-2 focus:ring-black/5 transition-all font-medium" />
                                         </div>
                                     </div>
                                     <div className="space-y-2">
@@ -110,7 +115,7 @@ export default function Checkout() {
                                     </div>
                                     <button
                                         onClick={() => setStep(2)}
-                                        disabled={!address.firstName || !address.streetAddress || !address.mobile}
+                                        disabled={!address.firstName || !address.streetAddress || !address.city || !address.state || !address.zipCode || !address.country || !address.mobile}
                                         className="w-full bg-black text-white py-5 rounded-2xl font-bold mt-6 flex items-center justify-center space-x-2 shadow-xl shadow-black/10 hover:bg-gray-900 active:scale-[0.98] transition-all disabled:opacity-30 disabled:pointer-events-none"
                                     >
                                         <span>Continue to Review</span>
@@ -134,7 +139,7 @@ export default function Checkout() {
                                         <div>
                                             <p className="text-xs font-bold uppercase tracking-widest text-secondary mb-1">Delivering to</p>
                                             <p className="font-bold text-primary">{address.firstName} {address.lastName}</p>
-                                            <p className="text-sm text-secondary leading-relaxed">{address.streetAddress}, {address.city}, {address.state} {address.zipCode}</p>
+                                            <p className="text-sm text-secondary leading-relaxed">{address.streetAddress}, {address.city}, {address.state} {address.zipCode}, {address.country}</p>
                                             <button onClick={() => setStep(1)} className="text-xs font-bold text-accent mt-3 hover:underline underline-offset-4">Edit Address</button>
                                         </div>
                                     </div>
@@ -164,7 +169,7 @@ export default function Checkout() {
                                             </>
                                         ) : (
                                             <>
-                                                <span>Pay ${cartTotal} Now</span>
+                                                <span>Pay ₹{cartTotal} Now</span>
                                                 <ChevronRight size={20} strokeWidth={3} />
                                             </>
                                         )}
@@ -183,14 +188,14 @@ export default function Checkout() {
                                 {cartItems.map(item => (
                                     <div key={item._id} className="flex gap-4 group">
                                         <div className="w-16 h-16 bg-gray-50 rounded-2xl flex-shrink-0 overflow-hidden">
-                                            <img src={item.product?.imageUrl} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                                            <img src={item.product?.imageUrl || (item.product?.imageUrls && item.product.imageUrls[0]) || ''} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                                         </div>
                                         <div className="flex-grow min-w-0">
                                             <p className="font-bold text-sm truncate">{item.product?.title}</p>
                                             <p className="text-[11px] text-secondary font-medium mt-1 uppercase">{item.size} — {item.color}</p>
                                             <div className="flex justify-between items-end mt-1">
                                                 <p className="text-[11px] font-bold text-secondary">Qty: {item.quantity}</p>
-                                                <p className="text-sm font-bold text-primary">${item.discountedPrice * item.quantity}</p>
+                                                <p className="text-sm font-bold text-primary">₹{item.discountedPrice * item.quantity}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -199,11 +204,11 @@ export default function Checkout() {
                             <div className="border-t border-gray-100 mt-8 pt-6 space-y-4">
                                 <div className="flex justify-between text-sm text-secondary font-medium">
                                     <span>Subtotal</span>
-                                    <span className="text-primary font-bold">${cart?.totalPrice || cartTotal}</span>
+                                    <span className="text-primary font-bold">₹{cart?.totalPrice || cartTotal}</span>
                                 </div>
                                 <div className="flex justify-between text-sm text-secondary font-medium">
                                     <span>Savings</span>
-                                    <span className="text-accent font-bold">-${cart?.discounte || 0}</span>
+                                    <span className="text-accent font-bold">-₹{cart?.discounte || 0}</span>
                                 </div>
                                 <div className="flex justify-between text-sm text-secondary font-medium">
                                     <span>Shipping</span>
@@ -211,7 +216,7 @@ export default function Checkout() {
                                 </div>
                                 <div className="pt-6 border-t border-gray-100 flex justify-between items-end">
                                     <span className="text-lg font-bold tracking-tight">Total</span>
-                                    <span className="text-2xl font-bold tracking-tighter text-primary">${cartTotal}</span>
+                                    <span className="text-2xl font-bold tracking-tighter text-primary">₹{cartTotal}</span>
                                 </div>
                             </div>
                         </div>

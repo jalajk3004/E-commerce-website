@@ -114,9 +114,9 @@ export default function ProductDetails() {
                                 <p className="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-4">Aura {product.brand}</p>
                                 <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-primary leading-tight">{product.title}</h1>
                                 <div className="flex items-center space-x-4 mt-4">
-                                    <p className="text-2xl font-bold text-primary">${product.discountedPrice}</p>
+                                    <p className="text-2xl font-bold text-primary">₹{product.discountedPrice}</p>
                                     {product.discountPersent > 0 && (
-                                        <p className="text-lg text-secondary line-through">${product.price}</p>
+                                        <p className="text-lg text-secondary line-through">₹{product.price}</p>
                                     )}
                                 </div>
                             </header>

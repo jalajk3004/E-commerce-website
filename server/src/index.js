@@ -34,6 +34,9 @@ app.use("/api/orders", orderRouter)
 const adminOrderRouter = require("./routes/adminOrder.route")
 app.use("/api/admin/orders", adminOrderRouter)
 
+const adminStatsRouter = require("./routes/admin.route")
+app.use("/api/admin", adminStatsRouter)
+
 const reviewRouter = require("./routes/review.route")
 app.use("/api/reviews", reviewRouter)
 

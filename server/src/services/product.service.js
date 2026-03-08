@@ -46,7 +46,7 @@ async function createProduct(reqData) {
         description: reqData.description,
         discountedPrices: reqData.discountedPrice || reqData.discountedPrices,
         discountedPercent: reqData.discountPercent || reqData.discountPersent,
-        imageUrls: reqData.imageUrl || reqData.imageUrls,
+        imageUrl: reqData.imageUrl,
         brand: reqData.brand,
         price: reqData.price,
         sizes: reqData.size || reqData.sizes,
@@ -92,7 +92,19 @@ async function getAllProduct(reqQuery) {
     if (category) {
         const existCategory = await Category.findOne({ name: category });
         if (existCategory) {
-            query = query.where("category").equals(existCategory._id);
+            let categoryIdsToMatch = [existCategory._id];
+
+            if (existCategory.level === 1) {
+                const level2 = await Category.find({ parentCategory: existCategory._id });
+                const level2Ids = level2.map(c => c._id);
+                const level3 = await Category.find({ parentCategory: { $in: level2Ids } });
+                categoryIdsToMatch = level3.map(c => c._id);
+            } else if (existCategory.level === 2) {
+                const level3 = await Category.find({ parentCategory: existCategory._id });
+                categoryIdsToMatch = level3.map(c => c._id);
+            }
+
+            query = query.where("category").in(categoryIdsToMatch);
         } else {
             return { content: [], currentPage: 1, totalPages: 0 };
         }

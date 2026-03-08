@@ -37,8 +37,8 @@ export default function ProductCarousel({ title, products, onProductClick }) {
                 ref={scrollRef}
                 className="flex space-x-6 overflow-x-auto pb-8 no-scrollbar scroll-smooth px-4 md:px-0"
             >
-                {products.map((product) => (
-                    <div key={product.id} className="w-[300px] md:w-[350px] flex-shrink-0">
+                {products.map((product, index) => (
+                    <div key={product._id || index} className="w-[300px] md:w-[350px] flex-shrink-0">
                         <ProductCard
                             product={product}
                             onClick={onProductClick}

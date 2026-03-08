@@ -12,7 +12,7 @@ const authenticate = async (req, res, next) => {
         const user = await userService.findUserById(userId);
         req.user = user;
     } catch (error) {
-        return res.status(500).send({ error: error.message });
+        return res.status(401).send({ error: error.message || "Invalid or expired token" });
     }
     next();
 };

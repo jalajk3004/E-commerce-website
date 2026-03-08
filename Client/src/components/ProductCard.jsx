@@ -22,7 +22,7 @@ export default function ProductCard({ product, onClick }) {
                 <h3 className="text-xl md:text-2xl font-bold text-primary tracking-tight truncate">{product.title || product.name}</h3>
                 <p className="text-sm text-secondary font-medium leading-relaxed line-clamp-2">{product.description}</p>
                 <div className="pt-6 flex items-center justify-between">
-                    <p className="text-lg font-bold">${product.discountedPrices || product.price}</p>
+                    <p className="text-lg font-bold">₹{product.discountedPrices || product.price}</p>
                     <button
                         onClick={(e) => { e.stopPropagation(); navigate(`/product/${product._id}`); }}
                         className="bg-black text-white px-6 py-2 rounded-full text-xs font-bold hover:bg-gray-800 transition-all active:scale-95 shadow-lg shadow-black/5"

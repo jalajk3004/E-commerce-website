@@ -127,7 +127,7 @@ export default function Profile() {
                                                         </div>
                                                         <div className="space-y-1">
                                                             <p className="text-[10px] uppercase tracking-widest text-secondary font-bold">Total Amount</p>
-                                                            <p className="text-lg font-bold">${order.totalDiscountedPrice}</p>
+                                                            <p className="text-lg font-bold">₹{order.totalDiscountedPrice}</p>
                                                         </div>
                                                         <div className="px-4 py-2 bg-gray-50 rounded-full">
                                                             <p className="text-[10px] uppercase tracking-widest font-bold text-black">{order.orderStatus}</p>
@@ -154,7 +154,7 @@ export default function Profile() {
                                                                     <p className="text-sm text-secondary font-medium uppercase tracking-tight">Size: {item.size} • Qty: {item.quantity}</p>
                                                                 </div>
                                                                 <div className="text-right">
-                                                                    <p className="font-bold text-lg">${item.discountedPrice}</p>
+                                                                    <p className="font-bold text-lg">₹{item.discountedPrice}</p>
                                                                 </div>
                                                             </div>
                                                         ))}

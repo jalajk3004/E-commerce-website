@@ -38,9 +38,9 @@ const ProductSchema = new mongoose.Schema({
         quantity: { type: Number },
 
     }],
-    imageUrls: [{
+    imageUrl: {
         type: String,
-    }],
+    },
     ratings: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "ratings",

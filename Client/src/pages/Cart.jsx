@@ -63,7 +63,7 @@ export default function Cart() {
                                 >
                                     <Link to={`/product/${item.product?._id}`} className="w-full sm:w-48 h-48 bg-gray-50 rounded-3xl overflow-hidden flex-shrink-0 group-hover:shadow-premium transition-shadow">
                                         <img
-                                            src={item.product?.imageUrl}
+                                            src={item.product?.imageUrl || (item.product?.imageUrls && item.product.imageUrls[0]) || ''}
                                             alt={item.product?.title}
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                                         />
@@ -83,9 +83,9 @@ export default function Cart() {
                                                 </div>
                                             </div>
                                             <div className="text-right">
-                                                <p className="text-xl md:text-2xl font-bold">${item.discountedPrice * item.quantity}</p>
+                                                <p className="text-xl md:text-2xl font-bold">₹{item.discountedPrice * item.quantity}</p>
                                                 {item.price > item.discountedPrice && (
-                                                    <p className="text-sm text-secondary line-through">${item.price * item.quantity}</p>
+                                                    <p className="text-sm text-secondary line-through">₹{item.price * item.quantity}</p>
                                                 )}
                                             </div>
                                         </div>
@@ -128,11 +128,11 @@ export default function Cart() {
                             <div className="space-y-4">
                                 <div className="flex justify-between text-secondary font-medium">
                                     <span>Subtotal</span>
-                                    <span className="text-black">${cart?.totalPrice || 0}</span>
+                                    <span className="text-black">₹{cart?.totalPrice || 0}</span>
                                 </div>
                                 <div className="flex justify-between text-secondary font-medium">
                                     <span>Savings</span>
-                                    <span className="text-accent font-bold">-${cart?.discounte || 0}</span>
+                                    <span className="text-accent font-bold">-₹{cart?.discounte || 0}</span>
                                 </div>
                                 <div className="flex justify-between text-secondary font-medium">
                                     <span>Shipping</span>
@@ -140,7 +140,7 @@ export default function Cart() {
                                 </div>
                                 <div className="pt-6 border-t border-gray-200 flex justify-between items-end">
                                     <span className="text-lg font-bold">Total</span>
-                                    <span className="text-3xl font-bold tracking-tighter">${cartTotal}</span>
+                                    <span className="text-3xl font-bold tracking-tighter">₹{cartTotal}</span>
                                 </div>
                             </div>
 

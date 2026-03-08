@@ -46,7 +46,8 @@ async function createOrder(user, shippAddress) {
         deliveryDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Default 7 days
     });
 
-    return await createdOrder.save();
+    const savedOrder = await createdOrder.save();
+    return await findOrderById(savedOrder._id);
 }
 
 async function placeOrder(orderId) {

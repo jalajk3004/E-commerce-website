@@ -46,7 +46,7 @@ export default function ModalPreview({ product, isOpen, onClose, onAddToCart }) 
                             <div>
                                 <p className="text-xs font-bold text-accent uppercase tracking-[0.2em] mb-3">{product.brand || 'New Exclusive'}</p>
                                 <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-primary leading-tight">{product.title || product.name}</h2>
-                                <p className="text-2xl font-bold mt-4 text-primary">${product.discountedPrices || product.price}</p>
+                                <p className="text-2xl font-bold mt-4 text-primary">₹{product.discountedPrices || product.price}</p>
                             </div>
 
                             <div className="space-y-6">

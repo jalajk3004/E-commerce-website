@@ -6,7 +6,7 @@ const createPaymentLink = async (orderId) => {
 
         const order = await orderService.findOrderById(orderId);
         const paymentLinkRequest = {
-            amount: order.totalAmount * 100,
+            amount: order.totalDiscountedPrice * 100,
             currency: "INR",
             customer: {
                 name: order.user.firstName + " " + order.user.lastName,
@@ -22,7 +22,7 @@ const createPaymentLink = async (orderId) => {
             callback_method: "get",
         }
 
-        const paymentLink = await razorpay.paymentLinks.create(paymentLinkRequest);
+        const paymentLink = await razorpay.paymentLink.create(paymentLinkRequest);
         const paymentLinkId = paymentLink.id;
         const payment_link_url = paymentLink.short_url;
 
